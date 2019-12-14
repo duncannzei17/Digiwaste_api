@@ -21,7 +21,6 @@ class TransporterController extends Controller
                  $transporters[$i] = $query[$i];	
              }
         } 
-
     
         return response()->json([
             "success" => true,

@@ -16,10 +16,19 @@ class CollectionController extends Controller
     public function index()
     {
         $today = date('D', strtotime(date("Y-m-d")));
-        $schedules = DB::select("SELECT * FROM schedules WHERE ( collection_day = '". $today ."'  AND active = 1) OR (frequency = 'daily' AND active = 1)");
+        $query = DB::select("SELECT * FROM schedules WHERE ( collection_day = '". $today ."'  AND active = 1) OR (frequency = 'daily' AND active = 1)");
+
+        $count = count($query);
+        $schedules = [];
+
+        if ($count > 0){
+             for($i=0; $i<$count;$i++){
+                 $schedules[$i] = $query[$i];    
+             }
+        } 
 
         return response()->json([
-            "shedules" => $schedules
+            "schedules" => $schedules
         ]);
 
 
